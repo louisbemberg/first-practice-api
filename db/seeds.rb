@@ -4,11 +4,13 @@ puts "Cleaning out the DB..."
 Comment.destroy_all
 puts "Successfully destroyed all comments ✅"
 
+Post.destroy_all
+puts "Successfully destroyed all posts ✅"
+
 User.destroy_all
 puts "Successfully destroyed all users ✅"
 
-Post.destroy_all
-puts "Successfully destroyed all posts ✅"
+
 
 
 # USERS
