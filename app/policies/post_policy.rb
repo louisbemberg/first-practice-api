@@ -8,4 +8,8 @@ class PostPolicy < ApplicationPolicy
   def show?
     true # anyone can see a specific post
   end
+
+  def update?
+    record.user == user || record.user.email = 'louisbemberg@my-first-api.com'
+  end
 end
