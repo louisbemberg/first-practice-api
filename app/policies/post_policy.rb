@@ -10,6 +10,14 @@ class PostPolicy < ApplicationPolicy
   end
 
   def update?
-    record.user == user || record.user.email = 'louisbemberg@my-first-api.com'
+    record.user == user || record.user.email == 'louisbemberg@my-first-api.com'
+  end
+
+  def create?
+    true
+  end
+
+  def destroy?
+    record.user == user || record.user.email == 'louisbemberg@my-first-api.com'
   end
 end

@@ -22,6 +22,28 @@ class Api::V1::PostsController < Api::V1::BaseController
     end
   end
 
+  def create
+    @post = Post.new(post_strong_params)
+    authorize @post
+    @post.user = current_user
+    if @post.save
+      render :show, status: :created # status is optional. turns 200 into 201
+    else
+      render_error
+    end
+  end
+
+  def destroy
+    @post = Post.find(params[:id])
+    authorize @post
+    if @post.destroy
+      @posts = policy_scope(Post)
+      render :index
+    else
+      render_error
+    end
+  end
+
   private
 
   def post_strong_params
@@ -33,9 +55,4 @@ class Api::V1::PostsController < Api::V1::BaseController
       status: :unprocessable_entity
   end
 
-  # could be refactored:
-  # def set_restaurant
-  #   @restaurant = Restaurant.find(params[:id])
-  #   authorize @restaurant  # For Pundit
-  # end
 end

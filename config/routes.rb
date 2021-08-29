@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   # API-specific routes to respect controllers>api>v1 architecture
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
-      resources :posts, only: [ :index, :show, :update ]
+      resources :posts, only: [ :index, :show, :update, :create, :destroy ] do
+        resources :comments, only: [ :create]
+      end
+      resources :comments, only: [ :destroy]
     end
   end
 
