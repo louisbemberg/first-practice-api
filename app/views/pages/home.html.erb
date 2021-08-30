@@ -1,2 +1,43 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<br>
+<h1 class='mb-5'>Louis's Basic Chat API Documentation</h1>
+
+<h4>Description</h4>
+<p>
+ This simple API allows you to publish and retrieve posts,
+ similarly to social media services such as Twitter, Medium, etc.
+ Each post has a title and content, and people can comment on your posts.
+ The API allows you to create, edit, and delete a post. It also allows you to
+ add and delete comments.
+</p>
+
+<h4>Permissions</h4>
+<p>
+ The API gives restricited permissions for certain actions:
+</p>
+<ul>
+  <li><strong>Read posts & comments</strong> - Anyone</li>
+  <li><strong>Publishing a post or comment</strong> - logged-in users <a href="">(more info below)</a></li>
+  <li><strong>Editing/deleting a post or comment</strong> - original owners of the post</li>
+</ul>
+
+
+<h4>URL(s)</h4>
+<p>
+  You may interact with the API with the method of your choice, although using
+  a user-friendly interface such as <a href="https://www.postman.com/">postman</a> is recommended.
+  The specific URLs for each available CRUD action are detailed below.
+</p>
+<ul>
+  <li><strong>See all posts</strong> - (GET) /api/v1/posts </li>
+  <li><strong>See one specific post</strong> - (GET) /api/v1/posts/:id </li>
+  <li><strong>Publishing a post</strong> - (POST) /api/v1/posts</li>
+  <li><strong>Editing a post</strong> - (PATCH) /api/v1/posts</li>
+  <li><strong>Publishing a post</strong> - (POST) /api/v1/posts/:id</li>
+  <li><strong>Deleting a post</strong> - (DELETE) /api/v1/posts/:id</li>
+  <li><strong>Publishing a comment</strong> - (POST) /api/v1/posts/comments</li>
+  <li><strong>Deleting a comment</strong> - (DELETE) /api/v1/comments/:id</li>
+</ul>
+
+<h4>Using the API</h4>
+<p>An example for each available CRUD action is listed below.</p>
+<h5> See all posts - (GET) /api/v1/posts</h5>
