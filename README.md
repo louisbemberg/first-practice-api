@@ -238,4 +238,29 @@ In this case, the API will respond with a list of all posts, to give you the fre
 ]
 ```
 
+## Adding a comment
+`(POST) /api/v1/posts/:post_id/comments`
 
+You may add a comment to any given post. To do so, you'll need to be authenticated.
+
+You can create an account by signing up [here](www.TBDTBDTBD.com) \
+Alternatively, you may use the following anonymous user credentials:
+```
+email: anonymous@user.com
+authentication_token: Rs4PjnF4knoy75ZjCi9z
+```
+
+The API will expect in the headers `User-Email` and `User-Token` keys, and JSON data in the body.
+A comment is only made up of `content`. You will need to specify in the URL the id `post_id` of the post you want to comment under. 
+
+Using the anonymous credentials mentioned above, a typical request could look like this.
+Let's add a comment to the post with id = XXXXX
+
+```console
+curl -i -X POST                                                             \
+    -H 'Content-Type: application/json'                                     \
+    -H 'X-User-Email: anonymous@user.com'                                   \
+    -H 'X-User-Token: Rs4PjnF4knoy75ZjCi9z'                                 \
+    -d '{ "content": "Awesome post!" }' \
+    http://localhost:3000/api/v1/posts/XXXXX
+```
