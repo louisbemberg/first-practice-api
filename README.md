@@ -1,40 +1,39 @@
-## Louis's Basic Chat API Documentation
+# Louis's Basic Chat API Documentation
 
-🌻 A simple API Built in Ruby on Rails to write posts & comment on them... Twitter style! 🐥
+  🌻 A simple API Built in Ruby on Rails to write posts & comment on them... Twitter style! 🐥
 
-### Introduction
+## Introduction 
  This simple API allows you to publish and retrieve posts,
  similarly to social media services such as Twitter, Medium, etc.
  Each post has a title and content, and people can comment on your posts.
  The API allows you to create, edit, and delete a post. It also allows you to
  add and delete comments.
 
-#### Permissions
-The API gives restricited permissions for certain actions:
-* **Read posts & comments** - anyone
-* **Publishing a post or comment** - logged-in users
-* **Editing/deleting a post or comment** - original owners of the post
+## Permissions
+  The API gives restricited permissions for certain actions:
+  * **Read posts & comments** - anyone
+  * **Publishing a post or comment** - logged-in users
+  * **Editing/deleting a post or comment** - original owners of the post
 
+## URL
+  The base URL of the API is [`https://TBDTBDTBD.herokuapp.com`](https://TBDTBDTBD.herokuapp.com)\
+  You may interact with the API with the method of your choice,
+  although using a user-friendly interface such as [postman](https://www.postman.com) is recommended.
+  The specific URLs for each available CRUD action are detailed below.
 
-#### URL(s)
-The base URL of the API is [`https://TBDTBDTBD.herokuapp.com`](https://TBDTBDTBD.herokuapp.com)\
-You may interact with the API with the method of your choice,
-although using a user-friendly interface such as [postman](https://www.postman.com) is recommended.
-The specific URLs for each available CRUD action are detailed below.
+  * **See all posts (and associated comments)** - (GET) /api/v1/posts
+  * **See one specific post (and associated comments)** - (GET) /api/v1/posts/:id
+  * **Publishing a post** - (POST) /api/v1/posts
+  * **Editing a post** - (PATCH) /api/v1/posts
+  * **Deleting a post** - (DELETE) /api/v1/posts/:id
+  * **Publishing a comment on a post** - (POST) /api/v1/posts/:post_id/comments
+  * **Deleting a comment** - (DELETE) /api/v1/comments/:id
 
-* **See all posts (and associated comments)** - (GET) /api/v1/posts
-* **See one specific post (and associated comments)** - (GET) /api/v1/posts/:id
-* **Publishing a post** - (POST) /api/v1/posts
-* **Editing a post** - (PATCH) /api/v1/posts
-* **Deleting a post** - (DELETE) /api/v1/posts/:id
-* **Publishing a comment on a post** - (POST) /api/v1/posts/:post_id/comments
-* **Deleting a comment** - (DELETE) /api/v1/comments/:id
-
-
-### Using the API
+# Using the API
 An example for each available CRUD action is listed below.
 
-#### See all posts - `(GET) /api/v1/posts`
+## See all posts
+`(GET) /api/v1/posts`
 
 There is no need to be logged in/authenticated to retrieve posts from the API.
 You may simply perform a GET request to get the desired data.
@@ -81,7 +80,8 @@ The API will respond with a JSON array filled with all the posts:
 ]
 ```
 
-#### See one specific post - `(GET) /api/v1/posts/:id`
+## See one specific post
+`(GET) /api/v1/posts/:id`
 Similarly to the previous example, no authentication is needed for GET requests.
 You may perform a GET request by specifying in the URL the id of the desired post. If you were interested in the post with id = 7, you'd run the following:
 
@@ -117,7 +117,8 @@ The API will respond with a JSON of the post:
 }
 ```
 
-#### Publishing a post - `(POST) /api/v1/posts`
+## Publishing a post 
+`(POST) /api/v1/posts`
 
 🚨 WARNING: For the following requests, you will need to be logged in to make a request to the API.
 You can create an account by signing up [here](www.TBDTBDTBD.com) \
@@ -133,9 +134,9 @@ As a reminder, any post must contain a `title` and `content`.
 Using the anonymous credentials mentioned above, a typical request could look like this:
 
 ```console
-curl -i -X POST                                                              \
+curl -i -X POST                                                             \
     -H 'Content-Type: application/json'                                     \
-    -H 'X-User-Email: anonymous@user.com'                                      \
+    -H 'X-User-Email: anonymous@user.com'                                   \
     -H 'X-User-Token: Rs4PjnF4knoy75ZjCi9z'                                 \
     -d '{ "title": "Hello World!", "content": "Good morning everybody!" }' \
     http://localhost:3000/api/v1/posts
@@ -152,7 +153,8 @@ The API will respond with a JSON object of the post you just created:
 }
 ```
 
-#### Editing a post - `(PATCH) /api/v1/posts/:id`
+## Editing a post
+`(PATCH) /api/v1/posts/:id`
 
 Very similar procedure as creating a post, simply with a different verb.
 As a reminder, The API will expect in the headers `User-Email` and `User-Token` keys, and JSON data in the body.
@@ -163,7 +165,7 @@ Editing the post with id 12 that you have created above would look like this:
 ```console
 curl -i -X PATCH                                        \
        -H 'Content-Type: application/json'              \
-       -H 'X-User-Email: anonymous@user.com'             \
+       -H 'X-User-Email: anonymous@user.com'            \
        -H 'X-User-Token: Rs4PjnF4knoy75ZjCi9z'          \
        -d '{ "restaurant": { "title": "This is a brand new title!" } }'    \
        http://localhost:3000/api/v1/posts/12
@@ -180,15 +182,60 @@ The API will respond with a JSON of your newly updated post:
 }
 ```
 
-#### Deleting a post - `(DELETE) /api/v1/posts/:id`
+## Deleting a post
+`(DELETE) /api/v1/posts/:id`
 
 The API will only let you delete one of your own posts.
 Again, it will verify your identity using your email and token provided in the headers.
 
 To delete the post you've created above, pass to the API your auhtentication headers and the id of the post to delete.
 
-Let's delete anonymous@user.com's post with id 12: 
+Let's delete 'anonymous@user.com''s post with id 12:
 
+```console
+curl -i -X DELETE                                    \
+       -H 'X-User-Email: anonymous@user.com'         \
+       -H 'X-User-Token: Rs4PjnF4knoy75ZjCi9z'       \
+       http://localhost:3000/api/v1/posts/12
+```
 
+Sometimes, API's don't respond at all after performing a DELETE action.
+In this case, the API will respond with a list of all posts, to give you the freedom to check that your post has indeed been deleted:
+
+```JSON
+[
+  {
+    "id": 7,
+    "title": "My first API!",
+    "content": "Created my first API using RoR. Not so bad!",
+    "comments": [
+      {
+        "id": 7,
+        "content": "congrats on your first post!"
+      },
+      {
+        "id": 8,
+        "content": "Cool API!"
+      },
+      {
+        "id": 9,
+        "content": "Let's hire this dude!"
+      },
+      {
+        "id": 10,
+        "content": "A bit basic to my taste."
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Try editing me!",
+    "content": "Practice your API skills and change this post's title to something else :)",
+    "comments": [
+
+    ]
+  }
+]
+```
 
 
