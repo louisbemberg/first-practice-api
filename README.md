@@ -1,6 +1,6 @@
 ## Louis's Basic Chat API Documentation
 
-🌻 A simple API Built in Ruby on Rails to write posts & comment on them.
+🌻 A simple API Built in Ruby on Rails to write posts & comment on them... Twitter style! 🐥
 
 ### Introduction
  This simple API allows you to publish and retrieve posts,
@@ -116,3 +116,79 @@ The API will respond with a JSON of the post:
   ]
 }
 ```
+
+#### Publishing a post - `(POST) /api/v1/posts`
+
+🚨 WARNING: For the following requests, you will need to be logged in to make a request to the API.
+You can create an account by signing up [here](www.TBDTBDTBD.com) \
+Alternatively, you may use the following anonymous user credentials:
+```
+email: anonymous@user.com
+authentication_token: Rs4PjnF4knoy75ZjCi9z
+```
+
+The API will expect in the headers `User-Email` and `User-Token` keys, and JSON data in the body.
+As a reminder, any post must contain a `title` and `content`.
+
+Using the anonymous credentials mentioned above, a typical request could look like this:
+
+```console
+curl -i -X POST                                                              \
+    -H 'Content-Type: application/json'                                     \
+    -H 'X-User-Email: anonymous@user.com'                                      \
+    -H 'X-User-Token: Rs4PjnF4knoy75ZjCi9z'                                 \
+    -d '{ "title": "Hello World!", "content": "Good morning everybody!" }' \
+    http://localhost:3000/api/v1/posts
+```
+
+The API will respond with a JSON object of the post you just created:
+
+```JSON
+{
+    "id": 12,
+    "title": "Hello World!",
+    "content": "Good morning everybody!",
+    "comments": []
+}
+```
+
+#### Editing a post - `(PATCH) /api/v1/posts/:id`
+
+Very similar procedure as creating a post, simply with a different verb.
+As a reminder, The API will expect in the headers `User-Email` and `User-Token` keys, and JSON data in the body.
+In the body, you are free to specify either `title`, `content`, or both, depending on what you want to change.
+
+Editing the post with id 12 that you have created above would look like this:
+
+```console
+curl -i -X PATCH                                        \
+       -H 'Content-Type: application/json'              \
+       -H 'X-User-Email: anonymous@user.com'             \
+       -H 'X-User-Token: Rs4PjnF4knoy75ZjCi9z'          \
+       -d '{ "restaurant": { "title": "This is a brand new title!" } }'    \
+       http://localhost:3000/api/v1/posts/12
+```
+
+The API will respond with a JSON of your newly updated post:
+
+```JSON
+{
+    "id": 12,
+    "title": "This is a brand new title!",
+    "content": "Good morning everybody!",
+    "comments": []
+}
+```
+
+#### Deleting a post - `(DELETE) /api/v1/posts/:id`
+
+The API will only let you delete one of your own posts.
+Again, it will verify your identity using your email and token provided in the headers.
+
+To delete the post you've created above, pass to the API your auhtentication headers and the id of the post to delete.
+
+Let's delete anonymous@user.com's post with id 12: 
+
+
+
+

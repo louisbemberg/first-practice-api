@@ -10,9 +10,6 @@ puts "Successfully destroyed all posts ✅"
 User.destroy_all
 puts "Successfully destroyed all users ✅"
 
-
-
-
 # USERS
 puts "Creating users..."
 
